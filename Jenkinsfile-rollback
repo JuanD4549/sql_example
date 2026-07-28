@@ -1,0 +1,44 @@
+p*peline {
+
+    agent any
+
+    param*ters {
+
+        string(
+          *name: 'TAG',
+           defaultVal*e: '',
+           description: 'Ta* de rollback'
+        )
+
+    }
+
+  * stages {
+
+        stage('Rollback*Approval') {
+
+            steps {
+*                input(
+           *        message: 'Confirma rollbac*?',
+                    ok: 'Rollb*ck'
+                )
+
+           *}
+
+        }
+
+        stage('Rollb*ck') {
+
+            steps {
+
+     *          sh """
+                 *  liquibase \
+                    *-defaultsFile=environments/PROD/co*e.properties \
+                   *rollback ${params.TAG}
+           *    """
+
+            }
+
+        }
+*    }
+
+}

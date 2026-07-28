@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Esto crea el desarrollador-->
+<databaseChangeLog
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="
+ http://www.liquibase.org/xml/ns/dbchangelog
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+   <changeSet
+      id="REQ-1001"
+      author="jbahamonde">
+
+      <sqlFile
+          path="../../scripts/tables/REQ-1234/alter_tb_cliente.sql"
+          relativeToChangelogFile="true"/>
+
+   </changeSet>
+
+
+
+</databaseChangeLog>

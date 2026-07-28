@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
 --changeset juand:crear_tablas
-create table people (
+create table person (
     id int primary key,
     name varchar(50) not null,
     address1 varchar(50),
