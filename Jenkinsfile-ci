@@ -1,0 +1,56 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Liquibase Validate') {
+            steps {
+                sh '''
+                  liquibase \
+                  --defaultsFile=environments/DEV/core.properties \
+                  validate
+                '''
+            }
+        }
+
+        stage('Check Pending Changes') {
+            steps {
+                sh '''
+                  liquibase \
+                  --defaultsFile=environments/DEV/core.properties \
+                  status
+                '''
+            }
+        }
+
+        stage('Generate SQL') {
+            steps {
+                sh '''
+                  liquibase \
+                  --defaultsFile=environments/DEV/core.properties \
+                  updateSQL > deployment.sql
+                '''
+            }
+        }
+
+        stage('Validate Naming') {
+            steps {
+                sh './scripts/validate_naming.sh'
+            }
+        }
+
+    }
+
+    post {
+        success {
+            archiveArtifacts 'deployment.sql'
+        }
+    }
+}
