@@ -1,15 +1,11 @@
 pipeline {
-
-    agent any
+    agent {
+        docker {
+            image 'liquibase/liquibase:4.23.2'
+        }
+    }
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Liquibase Validate') {
             steps {
                 sh '''
@@ -45,7 +41,6 @@ pipeline {
                 sh './scripts/validate_naming.sh'
             }
         }
-
     }
 
     post {
