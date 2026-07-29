@@ -1,0 +1,23 @@
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:latest   # Imagen ligera de Oracle XE
+    container_name: oracle-db_liquibase
+    ports:
+      - "1521:1521"   # Puerto de Oracle
+      - "5500:5500"   # Enterprise Manager opcional
+    environment:
+      ORACLE_PASSWORD: mysecurepassword
+    volumes:
+      - ./oracle_data:/opt/oracle/oradata
+    restart: unless-stopped
+  liquibase:
+    image: liquibase/liquibase:5.0
+    container_name: liquibase_example
+    depends_on:
+      - oracle-db
+    volumes:
+      - ./liquibase:/liquibase/changelog   # Carpeta local con tus changelogs
+      - ./drivers:/liquibase/lib           # carpeta con ojdbc8.jar
+    working_dir: /liquibase/changelog      # Define el directorio de trabajo
+    command: tail -f /dev/null
+    

@@ -1,0 +1,49 @@
+pipeline {
+
+    agent any
+
+    parameters {
+
+        choice(
+            name: 'DATABASE',
+            choices: [
+                'CORE',
+                'FACTURACION',
+                'LOGISTICA',
+                'REPORTES',
+                'INTEGRACION'
+            ]
+        )
+
+    }
+
+    stages {
+
+        stage('QA Approval') {
+
+            steps {
+                input(
+                    message: 'QA aprueba despliegue?',
+                    ok: 'Desplegar'
+                )
+            }
+
+        }
+
+        stage('Deploy QA') {
+
+            steps {
+
+                sh """
+                    liquibase \
+                    --defaultsFile=environments/QA/${params.DATABASE.toLowerCase()}.properties \
+                    update
+                """
+
+            }
+
+        }
+
+    }
+
+}
