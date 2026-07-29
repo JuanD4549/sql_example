@@ -9,5 +9,5 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="./changelog/releases/release_001.xml"/>
-    <include file="./changelog/releases/release_002.xml"/>
+    <!--<include file="./changelog/releases/release_002.xml"/>-->
 </databaseChangeLog>
