@@ -16,5 +16,6 @@ liquibase status --defaultsFile=environments/DEV/core.properties
 liquibase validate --defaultsFile=environments/QA/core.properties
 
 liquibase generate-changelog --defaultsFile=environments/DEV/core.properties --changelog-file=dbchangelog.xml
+liquibase generate-changelog --defaultsFile=environments/QA/core.properties --changelog-file=dbchangelog.xml
 
 liquibase --defaultsFile=environments/DEV/core.properties --output-file=mySnapshot.json snapshot --snapshot-format=json
